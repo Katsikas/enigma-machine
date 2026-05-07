@@ -80,7 +80,7 @@ button {
   justify-content: space-evenly;
   align-items: center;
 
-  padding: 1em;
+  padding: 0.5em 1em;
 }
 
 .output-section .text-wrapper {
@@ -160,7 +160,7 @@ button {
 }
 
 .lambBoard-section .letter .enable {
-  color: var(--enable-yellow);
+  animation: enableBtnColor 5s ease-in 1;
 }
 
 .keyboard-section {
@@ -230,5 +230,15 @@ button {
   }
   to {
     transform: scale(0.9);
+  }
+}
+
+@keyframes enableBtnColor {
+  2% {
+    color: var(--enable-yellow);
+  }
+
+  100% {
+    color: var(--enable-yellow);
   }
 }
