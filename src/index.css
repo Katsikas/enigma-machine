@@ -1,0 +1,234 @@
+:root {
+  --bg: #fff;
+  --text: rgb(228, 232, 234);
+  --steel-700: rgb(54, 54, 54);
+  --steel-800: rgb(44, 44, 44);
+  --steel-900: rgb(33, 33, 33);
+
+  --key-color: rgb(225, 223, 221);
+  --key-shadow: rgb(31, 39, 41, 0.5);
+
+  --disabled-yellow: hsla(51, 98%, 50%, 0.35);
+  --enable-yellow: hsl(51, 98%, 60%);
+
+  --wood-color: #855e42;
+
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: start;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+button {
+  outline: 0;
+  border: 0;
+}
+
+.enigma-machine {
+  display: flex;
+  flex-direction: column;
+  border: 1em solid var(--wood-color);
+}
+
+.output-con {
+  display: flex;
+  flex-direction: row;
+  height: 25svh;
+
+  background-color: var(--steel-900);
+}
+
+.output-section {
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  padding: 1em;
+}
+
+.output-section .text-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.output-section .text-wrapper p {
+  min-width: 50%;
+  height: 30px;
+
+  border: 1px solid var(--disabled-yellow);
+  border-radius: 2px;
+
+  background-color: var(--steel-700);
+
+  cursor: text;
+}
+
+.output-section .clear-btn {
+  align-self: flex-end;
+
+  padding: 1em;
+
+  color: var(--key-color);
+  border: 2px solid var(--key-color);
+  border-radius: 5px;
+
+  box-shadow:
+    inset 2px 2px 2px var(--key-shadow),
+    inset -2px 0px 12px var(--key-shadow);
+
+  cursor: pointer;
+}
+
+.output-section .clear-btn:focus {
+  animation: pressingAnimation 250ms linear 1;
+}
+
+.rotors-section {
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard {
+  padding: 1.5em;
+}
+
+.lambBoard-section {
+  background-color: var(--steel-800);
+}
+
+.lambBoard-section .letter p {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 60px;
+  width: 60px;
+
+  font-size: 2em;
+  color: var(--disabled-yellow);
+
+  background-color: #000;
+
+  border-radius: 50%;
+}
+
+.lambBoard-section .letter .enable {
+  color: var(--enable-yellow);
+}
+
+.keyboard-section {
+  background-color: var(--steel-700);
+}
+
+.keyboard-grid {
+  list-style-type: none;
+  display: grid;
+
+  grid-template-columns: repeat(10, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1.5em;
+
+  align-items: center;
+  justify-items: center;
+
+  justify-content: center;
+  align-content: center;
+}
+
+.keyboard-grid .letter button {
+  height: 60px;
+  width: 60px;
+
+  font-size: 2em;
+  color: var(--key-color);
+
+  border: 2px solid var(--key-color);
+  border-radius: 50%;
+
+  box-shadow:
+    inset 2px 2px 2px var(--key-shadow),
+    inset -2px 0px 12px var(--key-shadow);
+
+  cursor: pointer;
+}
+
+.keyboard-grid .letter button:focus {
+  animation: pressingAnimation 200ms linear 1;
+}
+
+.keyboard-grid .letter {
+  padding-left: 0.5em;
+}
+
+.keyboard-grid .letter-o {
+  transform: translateX(0.5em);
+}
+
+.keyboard-grid .letter-k {
+  padding-right: 1em;
+}
+
+.keyboard-grid .letter-a {
+  grid-column: 2 / 2;
+  transform: translateX(-0.5em);
+}
+
+.keyboard-grid .letter-p {
+  grid-column: 1/2;
+}
+
+@keyframes pressingAnimation {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}
