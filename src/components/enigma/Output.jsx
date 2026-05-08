@@ -1,6 +1,6 @@
 import Rotors from "./Rotors";
 
-export default function Output({ word, encryptedLetter, onClear }) {
+export default function Output({ pressedLetter, onClear }) {
   return (
     <div className="output-con">
       <Rotors />
@@ -9,8 +9,8 @@ export default function Output({ word, encryptedLetter, onClear }) {
           CLEAR
         </button>
         <div className="text-wrapper">
-          <p>{word.word}</p>
-          <p>{encryptedLetter}</p>
+          <p>{pressedLetter.word}</p>
+          <p>{pressedLetter.encrypted_word}</p>
         </div>
       </section>
     </div>
