@@ -1,9 +1,9 @@
 import Keyboard from "./Keyboard";
 
-export default function LambBoard({ keyboardLetters, encryptedLetter }) {
+export default function LambBoard({ keyboardLetters, pressedLetter }) {
   return (
     <Keyboard
-      encryptedLetter={encryptedLetter}
+      pressedLetter={pressedLetter}
       keyboardLetters={keyboardLetters}
       isLambBoard={true}
     />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Keyboard from "./Keyboard";
 import LambBoard from "./LambBoard";
 import Output from "./Output";
@@ -42,6 +42,26 @@ export default function Enigma() {
     encrypted_word: "",
   });
 
+  const keyboardLetters = Object.keys(ENCRYPTEDLETTERS[0]);
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      const key = e.key.toUpperCase();
+
+      const compareToKeyboard = keyboardLetters.filter((l) => l === key);
+
+      if (compareToKeyboard.length === 0) return;
+
+      handleLetterSelect(key);
+    }
+
+    document.addEventListener("keydown", handleKeyDown, false);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown, false);
+    };
+  }, [keyboardLetters, pressedLetter]);
+
   function handleLetterSelect(selectedLetter) {
     const encryptedLetter = ENCRYPTEDLETTERS[0][selectedLetter];
 
@@ -64,18 +84,17 @@ export default function Enigma() {
     });
   }
 
-  const keyboardLetters = Object.keys(ENCRYPTEDLETTERS[0]);
-
   return (
     <section className="enigma-machine">
       <Output pressedLetter={pressedLetter} onClear={handleClearText} />
       <LambBoard
         keyboardLetters={keyboardLetters}
-        encryptedLetter={pressedLetter.encrypted_letter}
+        pressedLetter={pressedLetter}
       />
       <Keyboard
         keyboardLetters={keyboardLetters}
         onSelect={handleLetterSelect}
+        pressedLetter={pressedLetter}
       />
     </section>
   );

@@ -160,7 +160,7 @@ button {
 }
 
 .lambBoard-section .letter .enable {
-  animation: enableBtnColor 5s ease-in 1;
+  animation: enableBtnColor 2s ease-in 1;
 }
 
 .keyboard-section {
@@ -200,6 +200,10 @@ button {
 }
 
 .keyboard-grid .letter button:focus {
+  animation: pressingAnimation 200ms linear 1;
+}
+
+.keyboard-grid .letter button.pressed {
   animation: pressingAnimation 200ms linear 1;
 }
 

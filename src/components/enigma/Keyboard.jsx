@@ -2,7 +2,7 @@ export default function Keyboard({
   keyboardLetters,
   isLambBoard,
   onSelect,
-  encryptedLetter,
+  pressedLetter,
 }) {
   return (
     <section
@@ -12,10 +12,19 @@ export default function Keyboard({
     >
       <ul className="keyboard-grid">
         {keyboardLetters.map((letter) => {
-          let cssClass = "disable";
+          let cssClass;
+          let btnClass;
 
-          if (letter === encryptedLetter) {
+          if (letter === pressedLetter.encrypted_letter) {
             cssClass = "enable";
+          } else {
+            cssClass = "not-pressed";
+          }
+
+          if (letter === pressedLetter.letter) {
+            btnClass = "pressed";
+          } else {
+            btnClass = "not-pressed";
           }
 
           return (
@@ -26,7 +35,9 @@ export default function Keyboard({
               {isLambBoard ? (
                 <p className={cssClass}>{letter}</p>
               ) : (
-                <button onClick={() => onSelect(letter)}>{letter}</button>
+                <button className={btnClass} onClick={() => onSelect(letter)}>
+                  {letter}
+                </button>
               )}
             </li>
           );
