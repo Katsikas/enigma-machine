@@ -9,8 +9,12 @@ export default function Output({ pressedLetter, onClear }) {
           CLEAR
         </button>
         <div className="text-wrapper">
-          <p>{pressedLetter.word}</p>
-          <p>{pressedLetter.encrypted_word}</p>
+          <p>MESSAGE</p>
+          <p className="output-text">{pressedLetter.word}</p>
+        </div>
+        <div className="text-wrapper">
+          <p>CHIPHER</p>
+          <p className="output-text">{pressedLetter.encrypted_word}</p>
         </div>
       </section>
     </div>

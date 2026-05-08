@@ -84,6 +84,10 @@ export default function Enigma() {
     });
   }
 
+  if (pressedLetter.word.length >= 120) {
+    handleClearText();
+  }
+
   return (
     <section className="enigma-machine">
       <Output pressedLetter={pressedLetter} onClear={handleClearText} />

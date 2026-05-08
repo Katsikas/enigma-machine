@@ -39,6 +39,7 @@
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 #root {
@@ -48,7 +49,6 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   box-sizing: border-box;
 }
@@ -58,16 +58,36 @@ button {
   border: 0;
 }
 
+main {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  flex-wrap: wrap;
+}
+
 .enigma-machine {
+  max-width: 80%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   border: 1em solid var(--wood-color);
+
+  position: relative;
+
+  overflow: hidden;
 }
 
 .output-con {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  height: 25svh;
+  position: relative;
+
+  min-height: 25svh;
 
   background-color: var(--steel-900);
 }
@@ -79,27 +99,38 @@ button {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  gap: 1em;
+
+  flex-wrap: wrap;
 
   padding: 0.5em 1em;
 }
 
 .output-section .text-wrapper {
+  height: max-content;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
   gap: 1em;
 }
 
-.output-section .text-wrapper p {
-  min-width: 50%;
-  height: 30px;
+.output-section .text-wrapper p:first-child {
+  width: 20%;
+}
+
+.output-section .text-wrapper .output-text {
+  width: 60%;
+  min-height: 30px;
 
   border: 1px solid var(--disabled-yellow);
   border-radius: 2px;
 
   background-color: var(--steel-700);
+
+  word-wrap: break-word;
+  text-overflow: ellipsis;
 
   cursor: text;
 }
