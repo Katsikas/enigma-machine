@@ -1,6 +1,6 @@
 export const ENCRYPTEDLETTERS = [
   {
-    Q: "R",
+    Q: "A",
     W: "X",
     E: "F",
     R: "S",
@@ -27,6 +27,7 @@ export const ENCRYPTEDLETTERS = [
     M: "N",
     L: "M",
   },
+
   {
     A: "C",
     B: "D",

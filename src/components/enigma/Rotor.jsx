@@ -1,25 +1,61 @@
-export default function Rotor({ position, onSelect }) {
+export default function Rotor({ pressedLetter, position, onSelect }) {
+  const readonly = pressedLetter.word.length > 0;
+
   return (
     <section className="rotors-section">
-      <label>ROTOR POSITION: {position}</label>
-      <select
-        id="position"
-        name="position"
-        onChange={(e) => onSelect(e.target.value)}
-      >
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-        <option value={6}>6</option>
-        <option value={7}>7</option>
-        <option value={8}>8</option>
-        <option value={9}>9</option>
-        <option value={10}>10</option>
-        <option value={11}>11</option>
-        <option value={12}>12</option>
-      </select>
+      <label>
+        ROTOR-1:{" "}
+        <input
+          type="number"
+          id="rotor-1"
+          name="rotor-1"
+          className="rotor"
+          max={25}
+          min={1}
+          readOnly={readonly}
+          title={
+            readonly
+              ? "Do not change rotor position setting while encrypting."
+              : "Set up the desired rotor position setting 1-25."
+          }
+          onChange={(e) => onSelect(e.target.value)}
+          value={position}
+        />
+      </label>
+      <label>
+        ROTOR-2:{" "}
+        <input
+          type="number"
+          id="rotor-2"
+          name="rotor-2"
+          className="rotor"
+          max={25}
+          min={1}
+          readOnly={readonly}
+          title={
+            readonly
+              ? "Do not change rotor position setting while encrypting."
+              : "Set up the desired rotor position setting 1-25."
+          }
+        />
+      </label>
+      <label>
+        ROTOR-3:{" "}
+        <input
+          type="number"
+          id="rotor-3"
+          name="rotor-3"
+          className="rotor"
+          max={25}
+          min={1}
+          readOnly={readonly}
+          title={
+            readonly
+              ? "Do not change rotor position setting while encrypting."
+              : "Set up the desired rotor position setting 1-25."
+          }
+        />
+      </label>
     </section>
   );
 }

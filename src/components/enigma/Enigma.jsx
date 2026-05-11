@@ -31,7 +31,7 @@ export default function Enigma() {
     return () => {
       document.removeEventListener("keydown", handleKeyDown, false);
     };
-  }, [keyboardLetters, pressedLetter]);
+  }, [keyboardLetters]);
 
   function handleLetterSelect(selectedLetter) {
     const encryptedLetter = ENCRYPTEDLETTERS[rotorPosition - 1][selectedLetter];
@@ -57,6 +57,16 @@ export default function Enigma() {
     });
   }
 
+  function handleRotorPositionChange(position) {
+    setRotorPosition(parseInt(position));
+
+    setPressedLetter({
+      letter: "",
+      word: "",
+      encrypted_letter: "",
+      encrypted_word: "",
+    });
+  }
   function handleClearText() {
     setPressedLetter({
       letter: "",
@@ -68,18 +78,6 @@ export default function Enigma() {
     setRotorPosition(1);
   }
 
-  function handleRotorPositionChange(position) {
-    setRotorPosition(parseInt(position));
-
-    setPressedLetter({
-      letter: "",
-      word: "",
-      encrypted_letter: "",
-      encrypted_word: "",
-    });
-  }
-
-  console.log(rotorPosition);
   if (pressedLetter.word.length >= 120) {
     handleClearText();
   }

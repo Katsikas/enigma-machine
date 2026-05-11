@@ -67,6 +67,8 @@ main {
   align-content: center;
 
   flex-wrap: wrap;
+
+  position: relative;
 }
 
 .enigma-machine {
@@ -110,9 +112,8 @@ main {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+
   align-items: center;
-  gap: 1em;
 }
 
 .output-section .text-wrapper p:first-child {
@@ -158,10 +159,53 @@ main {
   width: 50%;
 
   display: flex;
-  flex-direction: column;
-
+  flex-direction: row-reverse;
+  gap: 2em;
   justify-content: center;
   align-items: center;
+}
+
+.rotors-section label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.rotors-section label {
+  position: relative;
+}
+
+.rotors-section .rotor {
+  width: 3em;
+  height: 3em;
+
+  outline: none;
+  border: none;
+  font-size: 1em;
+  padding-left: 1em;
+}
+
+.rotors-section label:has(#rotor-2),
+.rotors-section label:has(#rotor-3) {
+  pointer-events: none;
+}
+
+.rotors-section label:has(#rotor-2)::after,
+.rotors-section label:has(#rotor-3)::after {
+  content: "Out of use";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+
+  text-align: center;
+  place-content: center;
 }
 
 .keyboard {
