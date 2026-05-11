@@ -230,10 +230,6 @@ main {
   cursor: pointer;
 }
 
-.keyboard-grid .letter button:focus {
-  animation: pressingAnimation 200ms linear 1;
-}
-
 .keyboard-grid .letter button.pressed {
   animation: pressingAnimation 200ms linear 1;
 }

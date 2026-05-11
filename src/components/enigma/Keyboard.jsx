@@ -1,9 +1,17 @@
+import { useState } from "react";
+
 export default function Keyboard({
   keyboardLetters,
   isLambBoard,
   onSelect,
   pressedLetter,
 }) {
+  const [pressed, setPressed] = useState(false);
+
+  function handleAnimationEnd() {
+    setPressed((prev) => !prev);
+  }
+
   return (
     <section
       className={
@@ -12,20 +20,15 @@ export default function Keyboard({
     >
       <ul className="keyboard-grid">
         {keyboardLetters.map((letter) => {
-          let cssClass;
-          let btnClass;
+          let lambCssClass;
 
-          if (letter === pressedLetter.encrypted_letter) {
-            cssClass = "enable";
+          if (isLambBoard && letter === pressedLetter.encrypted_letter) {
+            lambCssClass = "enable";
           } else {
-            cssClass = "not-pressed";
+            lambCssClass = "";
           }
 
-          if (letter === pressedLetter.letter) {
-            btnClass = "pressed";
-          } else {
-            btnClass = "not-pressed";
-          }
+          const isPressed = pressed && letter === pressedLetter.letter;
 
           return (
             <li
@@ -33,9 +36,16 @@ export default function Keyboard({
               key={letter}
             >
               {isLambBoard ? (
-                <p className={cssClass}>{letter}</p>
+                <p className={lambCssClass}>{letter}</p>
               ) : (
-                <button className={btnClass} onClick={() => onSelect(letter)}>
+                <button
+                  onAnimationEnd={handleAnimationEnd}
+                  className={isPressed ? "pressed" : ""}
+                  onClick={() => {
+                    onSelect(letter);
+                    handleAnimationEnd();
+                  }}
+                >
                   {letter}
                 </button>
               )}
