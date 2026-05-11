@@ -2,39 +2,10 @@ import { useEffect, useState } from "react";
 import Keyboard from "./Keyboard";
 import LambBoard from "./LambBoard";
 import Output from "./Output";
-
-const ENCRYPTEDLETTERS = [
-  {
-    Q: "R",
-    W: "X",
-    E: "F",
-    R: "S",
-    T: "U",
-    Z: "A",
-    U: "V",
-    I: "J",
-    O: "P",
-    A: "B",
-    S: "T",
-    D: "E",
-    F: "G",
-    G: "H",
-    H: "I",
-    J: "K",
-    K: "L",
-    P: "Q",
-    Y: "Z",
-    X: "Y",
-    C: "D",
-    V: "W",
-    B: "C",
-    N: "O",
-    M: "N",
-    L: "M",
-  },
-];
+import { ENCRYPTEDLETTERS } from "../../utils/dictionary";
 
 export default function Enigma() {
+  const [rotorPosition, setRotorPosition] = useState(1);
   const [pressedLetter, setPressedLetter] = useState({
     letter: "",
     word: "",
@@ -42,7 +13,7 @@ export default function Enigma() {
     encrypted_word: "",
   });
 
-  const keyboardLetters = Object.keys(ENCRYPTEDLETTERS[0]);
+  const keyboardLetters = Object.keys(ENCRYPTEDLETTERS[0]).toSpliced(0, 1);
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -63,7 +34,7 @@ export default function Enigma() {
   }, [keyboardLetters, pressedLetter]);
 
   function handleLetterSelect(selectedLetter) {
-    const encryptedLetter = ENCRYPTEDLETTERS[0][selectedLetter];
+    const encryptedLetter = ENCRYPTEDLETTERS[rotorPosition - 1][selectedLetter];
 
     setPressedLetter((prev) => {
       return {
@@ -72,6 +43,17 @@ export default function Enigma() {
         encrypted_letter: encryptedLetter,
         encrypted_word: prev.encrypted_word + encryptedLetter,
       };
+    });
+
+    setRotorPosition((prev) => {
+      let newPosition;
+
+      if (prev === 25) {
+        newPosition = 1;
+      } else {
+        newPosition = prev + 1;
+      }
+      return newPosition;
     });
   }
 
@@ -82,15 +64,34 @@ export default function Enigma() {
       encrypted_letter: "",
       encrypted_word: "",
     });
+
+    setRotorPosition(1);
   }
 
+  function handleRotorPositionChange(position) {
+    setRotorPosition(parseInt(position));
+
+    setPressedLetter({
+      letter: "",
+      word: "",
+      encrypted_letter: "",
+      encrypted_word: "",
+    });
+  }
+
+  console.log(rotorPosition);
   if (pressedLetter.word.length >= 120) {
     handleClearText();
   }
 
   return (
     <section className="enigma-machine">
-      <Output pressedLetter={pressedLetter} onClear={handleClearText} />
+      <Output
+        pressedLetter={pressedLetter}
+        onClear={handleClearText}
+        rotorPosition={rotorPosition}
+        onRotorSelect={handleRotorPositionChange}
+      />
       <LambBoard
         keyboardLetters={keyboardLetters}
         pressedLetter={pressedLetter}

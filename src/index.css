@@ -70,8 +70,7 @@ main {
 }
 
 .enigma-machine {
-  max-width: 80%;
-  width: 80%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   border: 1em solid var(--wood-color);
@@ -166,6 +165,7 @@ main {
 }
 
 .keyboard {
+  width: 100%;
   padding: 1.5em;
 }
 

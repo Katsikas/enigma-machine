@@ -1,9 +1,14 @@
-import Rotors from "./Rotors";
+import Rotor from "./Rotor";
 
-export default function Output({ pressedLetter, onClear }) {
+export default function Output({
+  pressedLetter,
+  onClear,
+  rotorPosition,
+  onRotorSelect,
+}) {
   return (
     <div className="output-con">
-      <Rotors />
+      <Rotor position={rotorPosition} onSelect={onRotorSelect} />
       <section className="output-section">
         <button className="clear-btn" onClick={onClear}>
           CLEAR
