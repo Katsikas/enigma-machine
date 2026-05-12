@@ -58,15 +58,10 @@ export default function Enigma() {
   }
 
   function handleRotorPositionChange(position) {
+    console.log(position);
     setRotorPosition(parseInt(position));
-
-    setPressedLetter({
-      letter: "",
-      word: "",
-      encrypted_letter: "",
-      encrypted_word: "",
-    });
   }
+
   function handleClearText() {
     setPressedLetter({
       letter: "",
