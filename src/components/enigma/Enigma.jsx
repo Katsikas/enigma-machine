@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Keyboard from "./Keyboard";
 import LambBoard from "./LambBoard";
 import Output from "./Output";
-import { ENCRYPTED_LETTERS } from "../../utils/dictionary";
+import { ETW, ROTOR_1, ROTOR_2, ROTOR_3, UKW } from "../../utils/dictionary";
 
 export default function Enigma() {
   const [rotorPosition, setRotorPosition] = useState(1);
@@ -13,7 +13,7 @@ export default function Enigma() {
     encrypted_word: "",
   });
 
-  const keyboardLetters = Object.keys(ENCRYPTED_LETTERS[0]).toSpliced(0, 1);
+  const keyboardLetters = Object.keys(ROTOR_1[0]);
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -34,15 +34,20 @@ export default function Enigma() {
   }, [keyboardLetters]);
 
   function handleLetterSelect(selectedLetter) {
-    const encryptedLetter =
-      ENCRYPTED_LETTERS[rotorPosition - 1][selectedLetter];
+    const etw = ETW[0][selectedLetter];
+
+    const rotor_1 = ROTOR_1[0][etw];
+    const rotor_2 = ROTOR_2[0][rotor_1];
+    const rotor_3 = ROTOR_3[0][rotor_2];
+
+    const ukw_encrypted = UKW[0][rotor_3];
 
     setPressedLetter((prev) => {
       return {
         letter: selectedLetter,
         word: prev.word + selectedLetter,
-        encrypted_letter: encryptedLetter,
-        encrypted_word: prev.encrypted_word + encryptedLetter,
+        encrypted_letter: ukw_encrypted,
+        encrypted_word: prev.encrypted_word + ukw_encrypted,
       };
     });
 

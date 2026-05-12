@@ -1,4 +1,5 @@
 import Rotor from "./Rotor";
+import enigmaLogo from "./../../../public/enigma-logo.svg";
 
 export default function Output({
   pressedLetter,
@@ -8,6 +9,13 @@ export default function Output({
 }) {
   return (
     <div className="output-con">
+      <img
+        src={enigmaLogo}
+        height={480}
+        width={60}
+        className="outputBg"
+        alt="engima logo"
+      />
       <Rotor position={rotorPosition} onSelect={onRotorSelect} />
       <section className="output-section">
         <button className="clear-btn" onClick={onClear}>
