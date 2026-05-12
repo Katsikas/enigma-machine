@@ -1,5 +1,4 @@
 import Rotor from "./Rotor";
-import enigmaLogo from "./../../../public/enigma-logo.svg";
 
 export default function Output({
   pressedLetter,
@@ -10,7 +9,7 @@ export default function Output({
   return (
     <div className="output-con">
       <img
-        src={enigmaLogo}
+        src="public/enigma-logo.svg"
         height={480}
         width={60}
         className="outputBg"
