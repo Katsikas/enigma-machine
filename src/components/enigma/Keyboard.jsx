@@ -32,7 +32,8 @@ export default function Keyboard({
 
           return (
             <li
-              className={`letter letter-${letter.toLowerCase()}`}
+              className={`${isLambBoard ? "light" : "key"}`}
+              id={`letter-${letter.toLowerCase()}`}
               key={letter}
             >
               {isLambBoard ? (

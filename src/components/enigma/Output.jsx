@@ -8,11 +8,7 @@ export default function Output({
 }) {
   return (
     <div className="output-con">
-      <Rotor
-        pressedLetter={pressedLetter}
-        position={rotorPosition}
-        onSelect={onRotorSelect}
-      />
+      <Rotor position={rotorPosition} onSelect={onRotorSelect} />
       <section className="output-section">
         <button className="clear-btn" onClick={onClear}>
           CLEAR
