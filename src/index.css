@@ -13,6 +13,8 @@
 
   --wood-color: #855e42;
 
+  --pop-up-time-function: cubic-bezier(0.42, 0, 0.44, 1.68);
+
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -40,6 +42,10 @@
 body {
   margin: 0;
   overflow-x: hidden;
+}
+
+#modal {
+  position: relative;
 }
 
 #root {
@@ -71,6 +77,78 @@ main {
   position: relative;
 }
 
+.modal::backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100svh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  place-self: center;
+  min-width: 30rem;
+  min-height: 25svh;
+  padding: 2em;
+  z-index: 2;
+  background: var(--steel-700);
+  border-color: var(--wood-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  animation: slide-down-fade-in 0.3s ease-out forwards;
+}
+
+.modal-input-con {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
+  max-width: 40rem;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.modal-input-con .close-btn {
+  align-self: flex-end;
+
+  padding: 1em;
+
+  color: var(--key-color);
+  border: 2px solid var(--key-color);
+  border-radius: 5px;
+
+  font-size: 1em;
+  font-weight: 600;
+
+  box-shadow:
+    inset 2px 2px 2px var(--key-shadow),
+    inset -2px 0px 12px var(--key-shadow);
+
+  cursor: pointer;
+}
+
+.modal-input-con .close-btn:focus {
+  animation: pressingAnimation 250ms linear 1;
+}
+
+.modal-input-con label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.modal-input-con input {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  font-size: 2em;
+  padding: 0.2em 0;
+}
+
 .enigma-machine {
   max-width: 100%;
   display: flex;
@@ -86,11 +164,22 @@ main {
   width: 100%;
   display: flex;
   flex-direction: row;
-  position: relative;
 
-  min-height: 25svh;
+  min-height: 30svh;
 
   background-color: var(--steel-900);
+  position: relative;
+}
+
+.output-con .outputBg {
+  position: absolute;
+  top: 0.5em;
+  right: 1em;
+  height: 40%;
+  width: 40%;
+  object-fit: contain;
+  z-index: 0;
+  opacity: 0.5;
 }
 
 .output-section {
@@ -105,6 +194,7 @@ main {
   flex-wrap: wrap;
 
   padding: 0.5em 1em;
+  z-index: 2;
 }
 
 .output-section .text-wrapper {
@@ -139,7 +229,7 @@ main {
   align-self: flex-end;
 
   padding: 1em;
-
+  font-weight: 600;
   color: var(--key-color);
   border: 2px solid var(--key-color);
   border-radius: 5px;
@@ -163,18 +253,52 @@ main {
   gap: 2em;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
-.rotors-section label {
+.rotors-section .rotor-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1em;
+
+  text-align: center;
+  width: 50px;
+
+  /* padding: 0.2em 0.7em; */
+
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(42, 42, 42, 1) 2%,
+    rgba(245, 245, 245, 1) 28%,
+    rgba(52, 52, 52, 1) 30%,
+    rgba(216, 216, 216, 1) 31%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(212, 212, 212, 1) 67%,
+    rgba(45, 45, 45, 1) 69%,
+    rgba(226, 226, 226, 1) 70%,
+    rgba(42, 42, 42, 1) 98%,
+    rgba(0, 0, 0, 1) 100%
+  );
 }
 
-.rotors-section label {
-  position: relative;
+.rotor-wrapper .position {
+  place-items: center;
+  transition: 150ms var(--pop-up-time-function);
+  place-content: center;
+}
+
+.rotor-wrapper button {
+  transition: 150ms var(--pop-up-time-function);
+  font-size: 2em;
+  color: #000;
+  text-shadow: 0px 2px 2px var(--steel-700);
+
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .rotors-section .rotor {
@@ -185,27 +309,8 @@ main {
   border: none;
   font-size: 1em;
   padding-left: 1em;
-}
 
-.rotors-section label:has(#rotor-2),
-.rotors-section label:has(#rotor-3) {
-  pointer-events: none;
-}
-
-.rotors-section label:has(#rotor-2)::after,
-.rotors-section label:has(#rotor-3)::after {
-  content: "Out of use";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-
-  text-align: center;
-  place-content: center;
+  position: relative;
 }
 
 .keyboard {
@@ -213,11 +318,15 @@ main {
   padding: 1.5em;
 }
 
+.keyboard li {
+  text-align: center;
+}
+
 .lambBoard-section {
   background-color: var(--steel-800);
 }
 
-.lambBoard-section .letter p {
+.lambBoard-section .light p {
   display: flex;
 
   justify-content: center;
@@ -234,7 +343,7 @@ main {
   border-radius: 50%;
 }
 
-.lambBoard-section .letter .enable {
+.lambBoard-section .light .enable {
   animation: enableBtnColor 2s ease-in 1;
 }
 
@@ -257,7 +366,7 @@ main {
   align-content: center;
 }
 
-.keyboard-grid .letter button {
+.keyboard-grid .key button {
   height: 60px;
   width: 60px;
 
@@ -274,28 +383,28 @@ main {
   cursor: pointer;
 }
 
-.keyboard-grid .letter button.pressed {
+.keyboard-grid .key button.pressed {
   animation: pressingAnimation 200ms linear 1;
 }
 
-.keyboard-grid .letter {
+.keyboard-grid .key {
   padding-left: 0.5em;
 }
 
-.keyboard-grid .letter-o {
+.keyboard-grid #letter-o {
   transform: translateX(0.5em);
 }
 
-.keyboard-grid .letter-k {
+.keyboard-grid #letter-k {
   padding-right: 1em;
 }
 
-.keyboard-grid .letter-a {
+.keyboard-grid #letter-a {
   grid-column: 2 / 2;
   transform: translateX(-0.5em);
 }
 
-.keyboard-grid .letter-p {
+.keyboard-grid #letter-p {
   grid-column: 1/2;
 }
 
@@ -315,5 +424,16 @@ main {
 
   100% {
     color: var(--enable-yellow);
+  }
+}
+
+@keyframes slide-down-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
