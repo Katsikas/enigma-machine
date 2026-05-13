@@ -9,7 +9,7 @@ export default function Output({
   return (
     <div className="output-con">
       <img
-        src="public/enigma-logo.svg"
+        src="/enigma-logo.svg"
         height={480}
         width={60}
         className="outputBg"
