@@ -16,6 +16,8 @@ export default function Output({
         alt="engima logo"
       />
       <Rotor position={rotorPosition} onSelect={onRotorSelect} />
+      <Rotor position={rotorPosition} onSelect={onRotorSelect} />
+      <Rotor position={rotorPosition} onSelect={onRotorSelect} />
       <section className="output-section">
         <button className="clear-btn" onClick={onClear}>
           CLEAR

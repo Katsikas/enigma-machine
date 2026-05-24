@@ -154,7 +154,7 @@ main {
 }
 
 .enigma-machine {
-  max-width: 100%;
+  width: 1024px;
   display: flex;
   flex-direction: column;
   border: 1em solid var(--wood-color);
@@ -170,7 +170,6 @@ main {
   flex-direction: row;
 
   min-height: 30svh;
-
   background-color: var(--steel-900);
   position: relative;
 }
@@ -253,6 +252,7 @@ main {
 
 .rotors-section {
   width: 50%;
+  flex: 1;
 
   display: flex;
   flex-direction: row-reverse;
