@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LETTER_TO_POSITION } from "../../utils/dictionary";
 import Modal from "../Modal";
 
-export default function Rotor({ position, onSelect }) {
+export default function Rotor({ rotorNumber, position, onSelect }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const prevLetterPosition = Object.keys(LETTER_TO_POSITION).find(
@@ -18,7 +18,7 @@ export default function Rotor({ position, onSelect }) {
   function handleLetterSelect(e) {
     const letter = e.target.innerHTML;
 
-    onSelect(LETTER_TO_POSITION[letter]);
+    onSelect(rotorNumber, LETTER_TO_POSITION[letter]);
   }
 
   function handleOpenInputModal() {
@@ -35,15 +35,15 @@ export default function Rotor({ position, onSelect }) {
         <div className="modal-input-con">
           <h2>Set up the desired rotor position.</h2>
           <label>
-            ROTOR I:
+            <h3 className="rotor-label">{rotorNumber}</h3>
             <input
               type="number"
               id="rotor-1"
               name="rotor-1"
               className="rotor"
-              max={25}
+              max={26}
               min={1}
-              onChange={(e) => onSelect(e.target.value)}
+              onChange={(e) => onSelect(rotorNumber, e.target.value)}
               value={position}
             />
           </label>

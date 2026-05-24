@@ -5,7 +5,11 @@ import Output from "./Output";
 import { ETW, ROTOR_1, ROTOR_2, ROTOR_3, UKW } from "../../utils/dictionary";
 
 export default function Enigma() {
-  const [rotorPosition, setRotorPosition] = useState(1);
+  const [rotorPosition, setRotorPosition] = useState({
+    rotor1: 1,
+    rotor2: 1,
+    rotor3: 1,
+  });
   const [pressedLetter, setPressedLetter] = useState({
     letter: "",
     word: "",
@@ -52,19 +56,46 @@ export default function Enigma() {
     });
 
     setRotorPosition((prev) => {
-      let newPosition;
+      let rotor1Move;
+      let rotor2Move = prev.rotor2;
+      let rotor3Move = prev.rotor3;
 
-      if (prev === 26) {
-        newPosition = 1;
+      if (prev.rotor1 === 26) {
+        rotor1Move = 1;
+        rotor2Move += 1;
       } else {
-        newPosition = prev + 1;
+        rotor1Move = prev.rotor1 + 1;
       }
-      return newPosition;
+
+      if (rotor2Move === 26) {
+        rotor2Move = 1;
+        rotor3Move += 1;
+      }
+
+      return {
+        rotor1: rotor1Move,
+        rotor2: rotor2Move,
+        rotor3: rotor3Move,
+      };
     });
   }
 
-  function handleRotorPositionChange(position) {
-    setRotorPosition(parseInt(position));
+  function handleRotorPositionChange(rotor, position) {
+    if (!position || position < 0 || position > 26) {
+      return;
+    }
+
+    setRotorPosition((prevPosition) => {
+      const rotor1Move = rotor === "rotor-i" ? position : prevPosition.rotor1;
+      const rotor2Move = rotor === "rotor-ii" ? position : prevPosition.rotor2;
+      const rotor3Move = rotor === "rotor-iii" ? position : prevPosition.rotor3;
+
+      return {
+        rotor1: parseInt(rotor1Move),
+        rotor2: parseInt(rotor2Move),
+        rotor3: parseInt(rotor3Move),
+      };
+    });
   }
 
   function handleClearText() {
@@ -75,7 +106,11 @@ export default function Enigma() {
       encrypted_word: "",
     });
 
-    setRotorPosition(1);
+    setRotorPosition({
+      rotor1: 1,
+      rotor2: 1,
+      rotor3: 1,
+    });
   }
 
   if (pressedLetter.word.length >= 120) {
