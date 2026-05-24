@@ -38,8 +38,8 @@ export default function Rotor({ rotorNumber, position, onSelect }) {
             <h3 className="rotor-label">{rotorNumber}</h3>
             <input
               type="number"
-              id="rotor-1"
-              name="rotor-1"
+              id={rotorNumber}
+              name={rotorNumber}
               className="rotor"
               max={26}
               min={1}
