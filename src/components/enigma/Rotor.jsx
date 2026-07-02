@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LETTER_TO_POSITION } from "../../utils/dictionary";
-import Modal from "../Modal";
+import Modal from "../UI/Modal";
 
 export default function Rotor({ rotorNumber, position, onSelect }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
