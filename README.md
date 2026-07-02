@@ -2,7 +2,7 @@
 
 _Let's dive into the encryption of a very famous WW2 machine!_
 
-Clone the repo or download the zip file
+**Clone the repo or download the zip file**
 
 ```
 npm install
