@@ -1,9 +1,13 @@
 import Enigma from "./components/enigma/Enigma";
+import Header from "./components/Header";
 
 export default function App() {
   return (
-    <main>
-      <Enigma />
-    </main>
+    <>
+      <Header />
+      <main>
+        <Enigma />
+      </main>
+    </>
   );
 }
